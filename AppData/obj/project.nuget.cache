@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9PcVyfZAB94fl0NiUPRXYf1wrqV7z/q9Q/xdNt2Lq0v6Zk/UIBIQcECLgP+xdGfFe4Dt7kA/1N4IZH5I0dOkNQ==",
+  "dgSpecHash": "/f4LOkSCLRecc7OREH8Pr0PQg4uEsUofsmt10iGStvRnZSxTf019BYqL4SbU16kEjZ6lY+fYsAFivBVwjoujwA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\do726\\Desktop\\fpt polytechnic\\NET105\\NHOM333_BANSACH_REDUX\\AppData\\AppData.csproj",
+  "projectFilePath": "C:\\Users\\do726\\Desktop\\fpt polytechnic\\NET105\\NHOM333_BANSACH_REDUX_NEW\\AppData\\AppData.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\do726\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\do726\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

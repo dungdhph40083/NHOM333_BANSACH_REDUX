@@ -14,14 +14,16 @@ namespace AppAPI.Controllers
         {
             return Ok(_Context.Books.ToList());
         }
-        [HttpGet("Details/{ID}")]
-        public ActionResult BookDetails(string ID)
+        [HttpGet("Details")]
+        public ActionResult BookDetails(string BookID)
         {
-            return Ok(_Context.Books.Find(ID));
+            return Ok(_Context.Books.Find(BookID));
         }
         [HttpPost("CreateNew")]
         public ActionResult BookCreate(Book NewBook)
         {
+            NewBook.BillDetails = null;
+            NewBook.CartDetails = null;
             try
             {
                 _Context.Books.Add(NewBook);
@@ -33,7 +35,7 @@ namespace AppAPI.Controllers
                 return BadRequest("god dam mit dude you noclipped to the shadow realm");
             }
         }
-        [HttpPut("Edit/{ID}")]
+        [HttpPut("Edit")]
         public ActionResult BookUpdate(Book CurrentBook)
         {
             try
@@ -59,12 +61,12 @@ namespace AppAPI.Controllers
                 return BadRequest("god dam mit dude you noclipped to the shadow realm");
             }
         }
-        [HttpDelete("Delete/{ID}")]
-        public ActionResult BookDelete(string ID)
+        [HttpDelete("Delete")]
+        public ActionResult BookDelete(string BookID)
         {
             try
             {
-                var Target = _Context.Books.Find(ID);
+                var Target = _Context.Books.Find(BookID);
                 if (Target != null)
                 {
                     _Context.Books.Remove(Target);
