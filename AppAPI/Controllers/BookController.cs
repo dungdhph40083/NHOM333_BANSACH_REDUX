@@ -1,6 +1,7 @@
 ﻿using AppData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppAPI.Controllers
 {
@@ -82,6 +83,43 @@ namespace AppAPI.Controllers
             {
                 return BadRequest("god dam mit dude you noclipped to the shadow realm");
             }
+        }
+        [HttpPost("Add2Cart")]
+        public ActionResult Add2Cart(string ID, int QuantityGet, string TargetUser)
+        {
+            QuantityGet = 1;
+            var CartItem = _Context.CartsDetails.FirstOrDefault(Property => Property.BookID == ID && Property.Username == TargetUser);
+            var CartUser = _Context.Carts.FirstOrDefault(Property => Property.Username == TargetUser);
+            if (CartItem == null)
+            {
+                CartDetails Details = new()
+                {
+                    CartDetailsID = Guid.NewGuid(),
+                    Username = TargetUser,
+                    BookID = ID,
+                    Quantity = QuantityGet,
+                    Status = 1
+                };
+                _Context.CartsDetails.Add(Details);
+                _Context.SaveChanges();
+            }
+            else
+            {
+                CartItem.Quantity += QuantityGet;
+                _Context.CartsDetails.Update(CartItem);
+                _Context.SaveChanges();
+            }
+            if (CartUser == null)
+            {
+                Cart NewCart = new()
+                {
+                    Username = TargetUser,
+                    Status = 1
+                };
+                _Context.Carts.Add(NewCart);
+                _Context.SaveChanges();
+            }
+            return Ok();
         }
     }
 }
