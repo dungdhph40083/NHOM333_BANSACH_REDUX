@@ -25,18 +25,21 @@ namespace AppAPI.Controllers
             return Ok(_Context.BillDetails
                      .Include(ProductP => ProductP.Bill)
                      .Include(ProductB => ProductB.Book)
-                     .Where(Property => Property.BillID == ID));
+                     .Where(Property => Property.BillID == ID)
+                     .ToList());
         }
 
         // POST: Create a cart based on bill
-        [HttpPost("CloneYourOldBill")]
+        [HttpGet("CloneYourOldBill")]
         public ActionResult CloneYourOldBill(Guid ID, string TargetUser)
         {
+            Guid DetailGUID = Guid.NewGuid();
             var CartUser = _Context.Carts.FirstOrDefault(Property => Property.Username == TargetUser);
+            var CurrentCartContent = _Context.CartsDetails.Where(U => U.Username == TargetUser);
             var BillContent = _Context.BillDetails
                  .Include(ProductP => ProductP.Bill)
                  .Include(ProductB => ProductB.Book)
-                 .Where(Property => Property.BillID == ID);
+                 .Where(Property => Property.BillID == ID).ToList();
             if (CartUser == null)
             {
                 Cart NewCart = new()
@@ -53,31 +56,44 @@ namespace AppAPI.Controllers
                 {
                     if (CartItem != null)
                     {
-                        CartDetails Details = new()
+                        if (CurrentCartContent != null)
                         {
-                            CartDetailsID = Guid.NewGuid(),
-                            Username = TargetUser,
-                            BookID = CartItem.BookID,
-                            Quantity = CartItem.Quantity,
-                            Status = 1
-                        };
-                        _Context.CartsDetails.Add(Details);
+                            foreach (var CartItem_Sub in CurrentCartContent)
+                            {
+                                if (CartItem_Sub.Quantity > 0)
+                                {
+                                    CartItem_Sub.Quantity += CartItem.Quantity;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            CartDetails Details = new()
+                            {
+                                CartDetailsID = DetailGUID,
+                                Username = TargetUser,
+                                BookID = CartItem.BookID,
+                                Quantity = CartItem.Quantity,
+                                Status = 1
+                            };
+                            _Context.CartsDetails.Add(Details);
+                        }
                         _Context.SaveChanges();
                     }
                 }
             }
-            return Ok();
+            return Ok(DetailGUID);
         }
 
         // PUT: Cancel the bill
-        [HttpPut("YourBillCancellation")]
+        [HttpGet("YourBillCancellation")]
         public ActionResult YourBillCancellation(Guid ID)
         {
             var GetBill = _Context.Bills.Find(ID);
             var BillContent = _Context.BillDetails
                              .Include(ProductP => ProductP.Bill)
                              .Include(ProductB => ProductB.Book)
-                             .Where(Property => Property.BillID == ID);
+                             .Where(Property => Property.BillID == ID).ToList();
             if (BillContent != null && GetBill != null && GetBill.Status != 100)
             {
                 foreach (var Item in BillContent)
@@ -94,7 +110,7 @@ namespace AppAPI.Controllers
             }
             else // Maybe I'll add a check that does something if the status quo is 100
             {
-                return BadRequest();
+                return BadRequest("Bill already cancelled or doesn't exist!\nPerhaps you were trying to get the response URL though, so whatever......!?");
             }
             _Context.SaveChanges();
             return Ok();

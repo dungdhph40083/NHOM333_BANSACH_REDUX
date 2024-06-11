@@ -13,12 +13,12 @@ namespace AppAPI.Controllers
         [HttpGet("CreateBill")]
         public ActionResult CreateBill(string TargetUser)
         {
+            Guid BillGUID = Guid.NewGuid();
             var CartItems = _Context.CartsDetails
                                     .Include(PP => PP.Book)
                                     .Where(Name => Name.Username == TargetUser);
             if (CartItems != null)
             {
-                var BillGUID = Guid.NewGuid();
                 foreach (var Item in CartItems)
                 {
                     if (Item != null)
@@ -39,7 +39,6 @@ namespace AppAPI.Controllers
                 {
                     BillDetails Details = new()
                     {
-
                         BillDetailsID = Guid.NewGuid(),
                         BillID = BillGUID,
                         BookID = Item.BookID,
@@ -59,7 +58,7 @@ namespace AppAPI.Controllers
                 };
                 _Context.Bills.Add(NewBill);
                 _Context.SaveChanges();
-                return Ok();
+                return Ok(BillGUID);
             }
             else
             {

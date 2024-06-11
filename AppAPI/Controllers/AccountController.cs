@@ -25,5 +25,10 @@ namespace AppAPI.Controllers
                 return BadRequest("god dam mit dude you noclipped to the shadow realm");
             }
         }
+        [HttpGet("AccountList")]
+        public ActionResult AccountList()
+        {
+            return Ok(_Context.Accounts.ToList());
+        }
     }
 }
