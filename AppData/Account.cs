@@ -11,9 +11,9 @@ namespace AppData
         [Required]
         [StringLength(256, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6 - 256 ký tự.")]
         public string? Password { get; set; }
-        [EmailAddress(ErrorMessage = "Định dạng phải đúng quy tắc, ví dụ như: vidu@hotmail.com")]
+        [EmailAddress(ErrorMessage = "Định dạng phải đúng quy tắc. Ví dụ: vidu@hotmail.com")]
         public string? Email { get; set; }
-        [RegularExpression("\\d{10,16}")]
+        [RegularExpression("\\d{10,16}", ErrorMessage = "Số điện thoại phải đúng định dạng 10 đến 16 số.")]
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
         public int Status { get; set; }

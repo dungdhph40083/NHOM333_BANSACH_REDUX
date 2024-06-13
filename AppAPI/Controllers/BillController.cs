@@ -22,11 +22,7 @@ namespace AppAPI.Controllers
         [HttpGet("YourBillDetails")]
         public ActionResult YourBillDetails(Guid ID)
         {
-            return Ok(_Context.BillDetails
-                     .Include(ProductP => ProductP.Bill)
-                     .Include(ProductB => ProductB.Book)
-                     .Where(Property => Property.BillID == ID)
-                     .ToList());
+            return Ok(_Context.BillDetails.Include(ProductP => ProductP.Bill).Include(ProductB => ProductB.Book).Where(Property => Property.BillID == ID).ToList());
         }
 
         // POST: Create a cart based on bill
@@ -36,10 +32,7 @@ namespace AppAPI.Controllers
             Guid DetailGUID = Guid.NewGuid();
             var CartUser = _Context.Carts.FirstOrDefault(Property => Property.Username == TargetUser);
             var CurrentCartContent = _Context.CartsDetails.Where(U => U.Username == TargetUser);
-            var BillContent = _Context.BillDetails
-                 .Include(ProductP => ProductP.Bill)
-                 .Include(ProductB => ProductB.Book)
-                 .Where(Property => Property.BillID == ID).ToList();
+            var BillContent = _Context.BillDetails.Include(ProductP => ProductP.Bill).Include(ProductB => ProductB.Book).Where(Property => Property.BillID == ID).ToList();
             if (CartUser == null)
             {
                 Cart NewCart = new()
@@ -90,10 +83,7 @@ namespace AppAPI.Controllers
         public ActionResult YourBillCancellation(Guid ID)
         {
             var GetBill = _Context.Bills.Find(ID);
-            var BillContent = _Context.BillDetails
-                             .Include(ProductP => ProductP.Bill)
-                             .Include(ProductB => ProductB.Book)
-                             .Where(Property => Property.BillID == ID).ToList();
+            var BillContent = _Context.BillDetails.Include(ProductP => ProductP.Bill).Include(ProductB => ProductB.Book).Where(Property => Property.BillID == ID).ToList();
             if (BillContent != null && GetBill != null && GetBill.Status != 100)
             {
                 foreach (var Item in BillContent)

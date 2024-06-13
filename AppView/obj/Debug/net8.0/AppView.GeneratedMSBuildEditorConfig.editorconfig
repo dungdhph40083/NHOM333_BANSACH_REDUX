@@ -34,6 +34,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTaWdudXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/do726/Desktop/fpt polytechnic/NET105/NHOM333_BANSACH_REDUX_NEW/AppView/Views/Bill/YourBillDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbFxZb3VyQmlsbERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/do726/Desktop/fpt polytechnic/NET105/NHOM333_BANSACH_REDUX_NEW/AppView/Views/Bill/YourBills.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbFxZb3VyQmlsbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/do726/Desktop/fpt polytechnic/NET105/NHOM333_BANSACH_REDUX_NEW/AppView/Views/Book/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/do726/Desktop/fpt polytechnic/NET105/NHOM333_BANSACH_REDUX_NEW/AppView/Views/Book/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/do726/Desktop/fpt polytechnic/NET105/NHOM333_BANSACH_REDUX_NEW/AppView/Views/CartsDetails/YourCart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydHNEZXRhaWxzXFlvdXJDYXJ0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/do726/Desktop/fpt polytechnic/NET105/NHOM333_BANSACH_REDUX_NEW/AppView/Views/Home/Index.cshtml]

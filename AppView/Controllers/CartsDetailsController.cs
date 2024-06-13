@@ -17,7 +17,11 @@ namespace AppView.Controllers
                 List<CartDetails>? CartDetail = JsonConvert.DeserializeObject<List<CartDetails>>(Response);
                 return View(CartDetail);
             }
-            else return View();
+            else
+            {
+                TempData["NotificationFail"] = "Phiên đăng nhập đã hết hạn! Hãy đăng nhập lại.";
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DeleteItem(Guid TargetID)
         {
@@ -28,9 +32,14 @@ namespace AppView.Controllers
                 var Response = Clyunt.DeleteAsync(RequestURL);
                 return RedirectToAction(nameof(YourCart));
             }
-            else return View();
+            else
+            {
+                TempData["NotificationFail"] = "Phiên đăng nhập đã hết hạn! Hãy đăng nhập lại.";
+                return RedirectToAction("Login", "Account");
+            }
         }
 
+        [HttpPost]
         public ActionResult CreateBill()
         {
             string? CheckIfSessionExists = HttpContext.Session.GetString("NameUser");
@@ -38,9 +47,13 @@ namespace AppView.Controllers
             {
                 string RequestURL = $@"https://localhost:7029/BepisAPI/CartsDetails/CreateBill?TargetUser={CheckIfSessionExists}";
                 var Response = Clyunt.GetStringAsync(RequestURL).Result;
-                return RedirectToAction("BillDetails", "Bill", Response);
+                return Redirect($"Bill/BillDetails{Response}");
             }
-            else return View();
+            else
+            {
+                TempData["NotificationFail"] = "Phiên đăng nhập đã hết hạn! Hãy đăng nhập lại.";
+                return RedirectToAction("Login", "Account");
+            }
         }
     }
 }

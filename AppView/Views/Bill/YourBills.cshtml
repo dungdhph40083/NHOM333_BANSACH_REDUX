@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AppData.Bill>
+
+@{
+    ViewData["Title"] = "Hóa đơn của bạn";
+}
+
+<h1>Hóa đơn của bạn</h1>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Mã hóa đơn
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th>
+                Thời gian tạo
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Tên người dùng
+            </th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @(item.BillID)
+            </td>
+            <td>
+                @(item.Description)
+            </td>
+            <td>
+                @(item.CreationTime)
+            </td>
+            <td>
+                @(item.Username)
+            </td>
+            <td>
+                @(item.Status != 100 ? "Đang thanh toán" : "Đã bị hủy")
+            </td>
+            <td>
+                <a class="btn btn-secondary" href="../Bill/YourBillDetails/@item.BillID">Chi tiết</a>
+                <a class="btn btn-success" asp-controller="Bill" asp-action="CloneBill" asp-route-ID="@item.BillID">Mua lại</a>
+                <a class="btn btn-danger" asp-controller="Bill" asp-action="CancelBill" asp-route-ID="@item.BillID">Hủy HĐ</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

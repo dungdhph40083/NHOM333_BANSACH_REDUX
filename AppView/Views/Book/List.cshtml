@@ -1,69 +1,62 @@
 ﻿@model IEnumerable<AppData.Book>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "Danh sách";
 }
 
-<h1>List</h1>
+<h1>Danh sách</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table table-bordered table-primary">
+    <thead class="table-primary">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookID)
+                Mã sách
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Tiêu đề
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Tác giả
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                Giá tiền
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Số lượng còn lại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+                Trạng thái
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
+            <th>Hành động</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-hover">
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.BookID)
+                @(item.BookID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @(item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @(item.Author)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Author)
+                @(item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @(item.Amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Amount)
+                @(item.Status == 1 ? "Còn hàng" : "Hết hàng")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-ID="@item.BookID">Edit</a> |
-                <a asp-action="Details" asp-route-ID="@item.BookID">Details</a> |
-                <a asp-action="Delete" asp-route-ID="@item.BookID">Delete</a>
+                    <a asp-action="Details" asp-route-ID="@item.BookID" class="btn btn-secondary">Chi tiết</a>
+                    @if (ViewData["Username"] != null)
+                    {
+                        <a asp-route-ID="@item.BookID" asp-route-QuantityGet="1" value="Add2Cart" class="btn btn-primary">Cho vào giỏ</a>
+                    }
             </td>
         </tr>
 }

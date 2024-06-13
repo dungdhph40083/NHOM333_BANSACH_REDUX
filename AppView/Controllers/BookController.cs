@@ -16,6 +16,11 @@ namespace AppView.Controllers
         [Route("Book")]
         public ActionResult List()
         {
+            string? CheckIfSessionExists = HttpContext.Session.GetString("NameUser");
+            if (CheckIfSessionExists != null)
+            {
+                ViewData["Username"] = CheckIfSessionExists;
+            }
             string RequestURL = @"https://localhost:7029/BepisAPI/Book/List";
             var Response = Clyunt.GetStringAsync(RequestURL).Result;
             List<Book>? Books = JsonConvert.DeserializeObject<List<Book>>(Response);
@@ -88,6 +93,29 @@ namespace AppView.Controllers
                 string RequestURL = $@"https://localhost:7029/BepisAPI/Book/Delete?BookID={ID}";
                 var Response = Clyunt.DeleteAsync(RequestURL);
                 return RedirectToAction("List", "Book");
+            }
+            catch
+            {
+                return RedirectToAction("List", "Book");
+            }
+        }
+
+        public ActionResult Add2Cart(string ID, int QuantityGet)
+        {
+            try
+            {
+                string? CheckIfSessionExists = HttpContext.Session.GetString("NameUser");
+                if (CheckIfSessionExists != null)
+                {
+                    string RequestURL = $@"https://localhost:7029/BepisAPI/Book/Add2Cart?ID={ID}&QuantityGet={QuantityGet}&TargetUser={CheckIfSessionExists}";
+                    Clyunt.PostAsync(RequestURL, null);
+                    return RedirectToAction("YourCart", "CartsDetails");
+                }
+                else
+                {
+                    TempData["NotificationFail"] = "Phiên đăng nhập đã hết hạn! Hãy đăng nhập lại.";
+                    return RedirectToAction("Login", "Account");
+                }
             }
             catch
             {

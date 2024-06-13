@@ -15,6 +15,16 @@ namespace AppView.Controllers
 
         public IActionResult Index()
         {
+            string? CheckIfSessionExists = HttpContext.Session.GetString("NameUser");
+            if (string.IsNullOrWhiteSpace(CheckIfSessionExists))
+            {
+                ViewData["Information"] = "Bạn chưa đăng nhập!";
+            }
+            else
+            {
+                ViewData["Username"] = CheckIfSessionExists;
+                ViewData["Information"] = $"Xin chào, {CheckIfSessionExists}!";
+            }
             return View();
         }
 

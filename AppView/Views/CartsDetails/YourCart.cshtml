@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AppData.CartDetails>
+
+@{
+    ViewData["Title"] = "Giỏ hàng của bạn";
+}
+
+<h1>Giỏ hàng của bạn</h1>
+
+<a asp-action="CreateBill" class="btn btn-success">Tạo hóa đơn</a>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Tiêu đề
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @(item.Book.Title)
+            </td>
+            <td>
+                @(item.Quantity)
+            </td>
+            <td>
+                @(item.Status == 1 ? "Khả dụng" : "Hết hàng")
+            </td>
+            <td>
+                <a asp-action="DeleteItem" asp-route-ID="@item.CartDetailsID">Bỏ hết</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
